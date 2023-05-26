@@ -202,13 +202,18 @@ jobs:
         
     - name: Deploy Kured into AKS using Helm
       run: |
-        helm repo add kured https://kubereboot.github.io/kured
-        helm upgrade kured kured/kured --namespace kured --install --create-namespace \
-          --set nodeSelector."beta\.kubernetes\.io/os"=linux \
-          --set configuration.startTime=9am \
-          --set configuration.endTime=5pm \
-          --set configuration.timeZone="America/Los_Angeles"
-          # --set configuration.rebootDays="[mo,tu,we,th,fr]"
+        # Add the Kured Helm repository 
+        helm repo add kubereboot https://kubereboot.github.io/charts/
+        # Update your local Helm chart repository cache 
+        helm repo update
+        # Deploy 
+        helm install my-kured kubereboot/kured \
+            --namespace kured \
+            --create-namespace \
+            --set extraArgs.start-time=9am \
+            --set extraArgs.end-time=5pm \
+            --set extraArgs.time-zone=America/Toronto \
+            #--set extraArgs.reboot-days="mon\,tue\,wed\,thu\,fri"
           
     - name: Deploy Prometheus & Grafana into AKS using Helm
       run: |
