@@ -171,7 +171,7 @@ jobs:
       uses: datamonsters/replace-action@v2
       with:
         files: kubernetes/api-deployment.azure.yaml
-        replacements: 'ACR_NAME=${{ env.DOCKER_REPOSITORY }},DOCKER_IMAGE=${{ env.IMAGE_NAME }},TAG=${{ env.IMAGE_TAG }}'
+        replacements: '__DOCKER_REPOSITORY__=${{ env.DOCKER_REPOSITORY }},__IMAGE_NAME__=${{ env.IMAGE_NAME }},__IMAGE_TAG__=${{ env.IMAGE_TAG }}'
         
     - name: Login to Azure
       uses: azure/login@v1
