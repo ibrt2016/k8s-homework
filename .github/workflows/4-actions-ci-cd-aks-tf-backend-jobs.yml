@@ -202,7 +202,7 @@ jobs:
         
     - name: Deploy Kured into AKS using Helm
       run: |
-        helm repo add kured https://weaveworks.github.io/kured
+        helm repo add kured https://kubereboot.github.io/kured
         helm upgrade kured kured/kured --namespace kured --install --create-namespace \
           --set nodeSelector."beta\.kubernetes\.io/os"=linux \
           --set configuration.startTime=9am \
