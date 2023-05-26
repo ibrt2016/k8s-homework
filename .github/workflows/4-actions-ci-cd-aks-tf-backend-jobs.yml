@@ -170,7 +170,7 @@ jobs:
     - name: Replace Image Repository, Name and Tag in YAML deployment
       uses: datamonsters/replace-action@v2
       with:
-        files: kubernetes/mvc-deployment.azure.yaml
+        files: kubernetes/api-deployment.azure.yaml
         replacements: 'ACR_NAME=${{ env.DOCKER_REPOSITORY }},DOCKER_IMAGE=${{ env.IMAGE_NAME }},TAG=${{ env.IMAGE_TAG }}'
         
     - name: Login to Azure
