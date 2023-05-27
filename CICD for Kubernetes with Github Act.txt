@@ -1,0 +1,53 @@
+CI/CD for Kubernetes with Github Actions
+
+Deploy Infra (Terraform) ==> Build Container ==> Deploy to Kubernetes
+
+Deploy Infra (Terraform) 
+
+-job: scan TF config (PR)
+   - checkov. tfscan
+
+-job: plan TF Changes (PR)
+   - Install TF
+   - terraform init
+   - terraform validate
+   - terraform plan -out tfplan
+   - comment in PR (tfplan)
+
+-job: apply TF change (merge)
+   - install TF
+   - terraform init
+   - terraform apply -auto-approve
+
+Build Container
+
+-job: build - scan (PR)
+   - docker build 
+   - docker tag
+   - scan with Trivy and Dockle
+
+-job: push (merge)
+   - docker build tag .
+   - docker login
+   - docker push
+
+Deploy to Kubernetes
+
+-job: deploy Dev (PR)
+   - az login (SPN)
+   - connect to AKS cluster
+   - kubectl apply -f .yaml
+   - scan cluster config
+
+-job: deploy Prod (Approval)
+   - approval
+   - same as job deploy Dev
+
+
+
+
+
+
+
+
+
